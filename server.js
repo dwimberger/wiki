@@ -61,6 +61,24 @@ const socketio = require('socket.io')
 var mw = autoload(CORE_PATH + '/core-middlewares')
 var ctrl = autoload(path.join(ROOTPATH, '/controllers'))
 
+if(appconfig.auth.auth0.enabled) {
+  const Auth0Strategy = require('passport-auth0')
+
+  const auth0Strategy = new Auth0Strategy({
+      domain:       appconfig.auth.auth0.domain,
+      clientID:     appconfig.auth.auth0.clientId,
+      clientSecret: appconfig.auth.auth0.clientSecret,
+      callbackURL:  '/callback'
+    },
+    function(accessToken, refreshToken, extraParams, profile, done) {
+      // accessToken is the token to call Auth0 API (not needed in the most cases)
+      // extraParams.id_token has the JSON Web Token
+      // profile has all the information from the user
+      return done(null, profile);
+    }
+  );
+  passport.use(auth0Strategy);
+}
 // ----------------------------------------
 // Define Express App
 // ----------------------------------------
