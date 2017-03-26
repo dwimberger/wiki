@@ -48,6 +48,10 @@ html
             span Or, log in using...
           else
             span Log in using...
+          if appconfig.auth.auth0 && appconfig.auth.auth0.enabled
+              button.ms(onclick='window.location.assign("/login/auth0")')
+                i.icon-auth0
+                span Auth0
           if appconfig.auth.microsoft && appconfig.auth.microsoft.enabled
             button.ms(onclick='window.location.assign("/login/ms")')
               i.icon-windows2
@@ -70,6 +74,6 @@ html
               span Slack
     #copyright
       = t('footer.poweredby') + ' '
-      a.icon(href='https://github.com/Requarks/wiki')
+      a.icon(href='https://github.com/dwimberger/wiki')
         i.icon-github
       a(href='https://wiki.requarks.io/') Wiki.js

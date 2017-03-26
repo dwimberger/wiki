@@ -59,19 +59,6 @@ router.post('/login', bruteforce.prevent, function (req, res, next) {
     } else {
       throw err
     }
-    if (appconfig.auth.auth0 && appconfig.auth.auth0.enabled) {
-      // [3] AUTH0 AUTHENTICATION
-      return new Promise((resolve, reject) => {
-        passport.authenticate('auth0', function (err, user, info) {
-          if (err) { return reject(err) }
-          if (info && info.message) { return reject(new Error(info.message)) }
-          if (!user) { return reject(new Error('INVALID_LOGIN')) }
-          resolve(user)
-        })(req, res, next)
-      })
-    } else {
-      throw err
-    }
   }).then((user) => {
     // LOGIN SUCCESS
     return req.logIn(user, function (err) {
@@ -107,12 +94,15 @@ router.get('/login/google', passport.authenticate('google', { scope: ['profile',
 router.get('/login/facebook', passport.authenticate('facebook', { scope: ['public_profile', 'email'] }))
 router.get('/login/github', passport.authenticate('github', { scope: ['user:email'] }))
 router.get('/login/slack', passport.authenticate('slack', { scope: ['identity.basic', 'identity.email'] }))
+router.get('/login/auth0', passport.authenticate('auth0', { scope: ['openid', 'email'] }))
 
 router.get('/login/ms/callback', passport.authenticate('windowslive', { failureRedirect: '/login', successRedirect: '/' }))
 router.get('/login/google/callback', passport.authenticate('google', { failureRedirect: '/login', successRedirect: '/' }))
 router.get('/login/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login', successRedirect: '/' }))
 router.get('/login/github/callback', passport.authenticate('github', { failureRedirect: '/login', successRedirect: '/' }))
 router.get('/login/slack/callback', passport.authenticate('slack', { failureRedirect: '/login', successRedirect: '/' }))
+router.get('/login/auth0/callback', passport.authenticate('auth0', { failureRedirect: '/login', successRedirect: '/' }))
+
 
 /**
  * Logout

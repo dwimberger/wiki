@@ -68,7 +68,7 @@ if(appconfig.auth.auth0.enabled) {
       domain:       appconfig.auth.auth0.domain,
       clientID:     appconfig.auth.auth0.clientId,
       clientSecret: appconfig.auth.auth0.clientSecret,
-      callbackURL:  '/callback'
+      callbackURL:  '/login/auth0/callback'
     },
     function(accessToken, refreshToken, extraParams, profile, done) {
       // accessToken is the token to call Auth0 API (not needed in the most cases)
