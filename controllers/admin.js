@@ -156,10 +156,12 @@ router.post('/users/create', (req, res) => {
         return res.json({ ok: true })
       })
     }).catch(err => {
+      console.log('ERROR catched pwdGen %j',err);
       winston.warn(err)
       return res.status(500).json({ msg: err })
     })
   }).catch(err => {
+    console.log('ERROR catched findOne %j',err);
     winston.warn(err)
     return res.status(500).json({ msg: err })
   })

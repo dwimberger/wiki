@@ -8,7 +8,8 @@
 
 global.PROCNAME = 'SERVER'
 global.ROOTPATH = __dirname
-global.IS_DEBUG = process.env.NODE_ENV === 'development'
+//global.IS_DEBUG = process.env.NODE_ENV === 'development'
+global.IS_DEBUG = true
 global.CORE_PATH = (IS_DEBUG) ? ROOTPATH + '/../core/' : ROOTPATH + '/node_modules/requarks-core/'
 
 process.env.VIPS_WARNING = false
