@@ -94,7 +94,7 @@ router.get('/login/google', passport.authenticate('google', { scope: ['profile',
 router.get('/login/facebook', passport.authenticate('facebook', { scope: ['public_profile', 'email'] }))
 router.get('/login/github', passport.authenticate('github', { scope: ['user:email'] }))
 router.get('/login/slack', passport.authenticate('slack', { scope: ['identity.basic', 'identity.email'] }))
-router.get('/login/auth0', passport.authenticate('auth0', { scope: ['openid', 'email'] }))
+router.get('/login/auth0', passport.authenticate('auth0'))
 
 router.get('/login/ms/callback', passport.authenticate('windowslive', { failureRedirect: '/login', successRedirect: '/' }))
 router.get('/login/google/callback', passport.authenticate('google', { failureRedirect: '/login', successRedirect: '/' }))
